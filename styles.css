@@ -296,14 +296,98 @@ body {
 
 /* ── PRINT ── */
 @media print {
-  body { background: white; }
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
+  }
+
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body { background: white; font-size: 8.5pt; }
+
   .app-header, .actions-bar, .scale-nav { display: none !important; }
-  #scale-container { margin: 0; padding: 0; max-width: 100%; }
-  .category-card, .patient-card, .results-card, .scale-title-card {
+
+  #scale-container {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  /* Título compacto */
+  .scale-title-card {
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    border-radius: 4px;
     box-shadow: none;
+  }
+  .scale-title-card h2 { font-size: 9.5pt; margin-bottom: 1px; }
+  .scale-title-card p  { font-size: 7pt; }
+
+  /* Datos del paciente */
+  .patient-card {
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  .patient-card h2 { font-size: 7.5pt; margin-bottom: 5px; }
+  .patient-grid { gap: 5px; grid-template-columns: repeat(3, 1fr); }
+  .field label { font-size: 6.5pt; margin-bottom: 1px; }
+  .field input { font-size: 7.5pt; padding: 2px 5px; border-radius: 3px; background: white !important; }
+
+  /* Categorías en 2 columnas */
+  #scale-container > .category-card {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+    margin-bottom: 4px;
+    margin-right: 1%;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     break-inside: avoid;
   }
+  #scale-container > .category-card:nth-child(odd) { margin-right: 1%; }
+  #scale-container > .category-card:nth-child(even) { margin-right: 0; }
+
+  .category-header {
+    padding: 4px 8px;
+    background: #dbeafe !important;
+  }
+  .category-header h3 { font-size: 8pt; }
+  .category-score-badge { font-size: 7.5pt; padding: 1px 8px; }
+
+  /* Solo mostrar opción seleccionada */
   .option-item:not(.selected) { display: none; }
-  .options-list { padding: 4px 0; }
-  .option-item.selected { border-left-color: #000; background: #f0f0f0; }
+  .options-list { padding: 2px 0; }
+  .option-item.selected {
+    padding: 4px 8px;
+    background: #eff6ff !important;
+    border-left: 2px solid #2b6cb0;
+  }
+  .option-dot { width: 10px; height: 10px; border-width: 1.5px; margin-top: 1px; }
+  .option-item.selected .option-dot::after { width: 4px; height: 4px; }
+  .option-score { font-size: 7.5pt; min-width: 18px; }
+  .option-text  { font-size: 7pt; line-height: 1.3; }
+
+  /* Resultados */
+  .results-card {
+    padding: 6px 10px;
+    margin-top: 5px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    break-inside: avoid;
+  }
+  .results-card h3 { font-size: 7.5pt; margin-bottom: 6px; }
+  .scores-grid { gap: 5px; grid-template-columns: repeat(6, 1fr); margin-bottom: 6px; }
+  .score-box { padding: 4px 6px; border-radius: 4px; }
+  .score-box .label { font-size: 6pt; }
+  .score-box .value { font-size: 11pt; margin-top: 1px; }
+  .global-score-row { padding: 6px 10px; margin-bottom: 5px; gap: 10px; border-radius: 4px; background: #dbeafe !important; }
+  .global-score-row .big-score { font-size: 18pt; }
+  .global-score-row .score-info .title { font-size: 8.5pt; }
+  .global-score-row .score-info .interpretation { font-size: 7.5pt; }
+  .sob-row { font-size: 7.5pt; padding: 4px 8px; }
 }
